@@ -90,9 +90,22 @@ router.post('/edit/:id', (req, res, next) => {
             res.redirect('/contact-list');
         }
     })
-
 })
-
 })
+// GET request to perform the delete action
 
+
+router.get('/delete/:id', (req, res, next) => {
+    let id = req.params.id;
+    // console.log("Del ID => " +id);
+
+    contactModel.remove({_id : id}, (err) => {
+        if(err){
+            console.log(err);
+            res.end(err);
+        }else{
+            res.redirect('/contact-list');
+        }
+    })
+})
 module.exports = router;
