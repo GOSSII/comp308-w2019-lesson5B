@@ -71,7 +71,27 @@ router.get('/edit/:id',(req, res, next) => {
             })
         }
     })
+// POST request - Update the databse from the data from the Edit Page 
+router.post('/edit/:id', (req, res, next) => {
+    let id = req.params.id;
 
+    let updateContact = contactModel({
+        "_id" : id,
+        "firstName": req.body.FirstNameTextField,
+        "lastName": req.body.LastNameTextField,
+        "age": req.body.AgeTextField
+    })
+
+    contactModel.update({_id: id }, updateContact, (err) => {
+        if(err){
+            console.log(err);
+            res.end(err);
+        }else{
+            res.redirect('/contact-list');
+        }
+    })
+
+})
 
 })
 
