@@ -52,4 +52,27 @@ router.post('/add',(req, res, next) => {
     })
 });
 
+// GET request - Display the Edit page
+router.get('/edit/:id',(req, res, next) => {
+    let id = req.params.id;
+    
+    contactModel.findById(id, (err, contactObject) => {
+        if(err){
+            console.log(err);
+            res.end(err);
+        }else
+        {
+            console.log("DB Instance "+ contactObject);
+            // Show Edit Page 
+            res.render('contacts/edit', {
+                title : 'Edit Contact',
+                contact: contactObject
+                
+            })
+        }
+    })
+
+
+})
+
 module.exports = router;
